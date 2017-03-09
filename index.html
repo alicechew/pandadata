@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panda Data</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="./main.css">
+    <script type="text/javascript" src="./js/lib/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="./js/lib/echarts.js"></script>
+    <script type="text/javascript" src="./js/lib/jquery.particleground.js"></script>
+
+
+</head>
+
+<body>
+<div class="particle"></div>
+    <div class="row header" id="test">
+        <img class="logo" src="./img/pandadata_logo.png" alt="pandadata">
+    </div>
+    <div class="row">
+        <div class="col-md-4 sidebar">
+        <div class="parameters">
+        	<input type="text" id="apartments"><label for="">APARTMENTS</label>
+        	<input type="text" id="area"><label for="">m²/APARTMENT</label>
+
+
+        </div>
+           <!--  <div class="menu">
+                <span>MENU</span>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="pure-menu-item">
+                        <a href="javascript:void(0)" class="pure-menu-link" data-tab="0">chart1</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="javascript:void(0)" class="pure-menu-link" data-tab="1">chart2</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="javascript:void(0)" class="pure-menu-link" data-tab="2">chart3</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="javascript:void(0)" class="pure-menu-link" data-tab="3">chart4</a>
+                    </li>
+                </ul>
+            </div> -->
+        </div>
+        <div class="col-md-8 content">
+            <div class="row">
+                <div class="graph" id="graph_container" style="width: 600px; height: 450px;"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./js/dataManager.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+</body>
+
+</html>

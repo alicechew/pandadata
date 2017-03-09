@@ -1,0 +1,107 @@
+[
+  {
+    "year": 2017,
+    "concrete": 0.96,
+    "wood": -1.5
+  },
+  {
+    "year": 2018,
+    "concrete": 1.92,
+    "wood": -3
+  },
+  {
+    "year": 2019,
+    "concrete": 2.88,
+    "wood": -4.5
+  },
+  {
+    "year": 2020,
+    "concrete": 3.84,
+    "wood": -6
+  },
+  {
+    "year": 2021,
+    "concrete": 4.8,
+    "wood": -7.5
+  },
+  {
+    "year": 2022,
+    "concrete": 5.76,
+    "wood": -9
+  },
+  {
+    "year": 2023,
+    "concrete": 6.72,
+    "wood": -10.5
+  },
+  {
+    "year": 2024,
+    "concrete": 7.68,
+    "wood": -12
+  },
+  {
+    "year": 2025,
+    "concrete": 8.64,
+    "wood": -13.5
+  },
+  {
+    "year": 2026,
+    "concrete": 9.6,
+    "wood": -15
+  },
+  {
+    "year": 2027,
+    "concrete": 10.56,
+    "wood": -16.5
+  },
+  {
+    "year": 2028,
+    "concrete": 11.52,
+    "wood": -18
+  },
+  {
+    "year": 2029,
+    "concrete": 12.48,
+    "wood": -19.5
+  },
+  {
+    "year": 2030,
+    "concrete": 13.44,
+    "wood": -21
+  },
+  {
+    "year": 2031,
+    "concrete": 14.4,
+    "wood": -22.5
+  },
+  {
+    "year": 2032,
+    "concrete": 15.36,
+    "wood": -24
+  },
+  {
+    "year": 2033,
+    "concrete": 16.32,
+    "wood": -25.5
+  },
+  {
+    "year": 2034,
+    "concrete": 17.28,
+    "wood": -27
+  },
+  {
+    "year": 2035,
+    "concrete": 18.24,
+    "wood": -28.5
+  },
+  {
+    "year": 2036,
+    "concrete": 19.2,
+    "wood": -30
+  },
+  {
+    "year": 2037,
+    "concrete": 20.16,
+    "wood": -31.5
+  }
+]
