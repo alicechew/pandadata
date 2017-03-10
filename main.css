@@ -2,6 +2,7 @@ html,
 body {
     height: 100%;
     margin: 0;
+    overflow: hidden;
 }
 
 .particle {
@@ -23,6 +24,24 @@ body {
 
 .sidebar {
     height: 100%;
+}
+
+.nav li a {
+	color: #999;
+}
+
+.nav>li>a:focus, .nav>li>a:hover{
+	background-color: transparent;
+}
+
+.nav li:hover a, .nav>li.cur>a {
+    color: #3c763d;
+}
+
+.nav li a{
+	padding: 2px 15px;
+	margin-left: 40px;
+	font-size: 18px;
 }
 
 .parameters {
@@ -74,7 +93,7 @@ body {
 }
 
 .analysis .back p {
-	margin-top: 40px;
+    margin-top: 40px;
     line-height: 1;
 }
 
