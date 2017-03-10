@@ -3,6 +3,7 @@ body {
     height: 100%;
     margin: 0;
     overflow: hidden;
+    font-family: Arial;
 }
 
 .particle {
@@ -72,12 +73,18 @@ body {
 .content .graph {
     margin: 0 auto;
 }
-
+.analysis .title{
+	width: 200px;
+	text-align: center;
+	margin-top: 120px;
+	font-weight: 900;
+	font-size: 16px;
+}
 .analysis .delta {
     position: relative;
     width: 200px;
     height: 200px;
-    margin-top: 120px;
+    margin-top: 20px;
 }
 
 .analysis .delta p {

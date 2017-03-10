@@ -383,7 +383,7 @@
 
         $newPage = $pages.filter("[data-page='" + index + "']");
         $curPage.addClass("hide");
-  
+
         $curPage = $newPage;
         if ($curPage.hasClass("hide")) {
             $curPage.removeClass("hide");
@@ -430,9 +430,17 @@
                 top: 30
             },
             xAxis: {
-                data: yearData
+                data: yearData,
+                name: "year",
+                nameLocation: "end"
+
             },
-            yAxis: {},
+            yAxis: {
+                name: "Greenhouse Gas Emissions (t)\n",
+                nameLocation: "middle",
+                nameRotate: 90
+
+            },
             color: ["#d59b00", "#3c763d"],
             series: [{
                 name: "concrete",
@@ -483,7 +491,7 @@
 
         var option = {
             title: {
-                text: "GHG Emissions 1995 - 2015",
+                text: "Sweden's Greenhouse Gas Emissions",
                 left: "28%"
             },
             tooltip: {
@@ -509,7 +517,10 @@
                 data: yearData95to15
             }],
             yAxis: [{
-                type: 'value'
+                type: 'value',
+                name: 'Emissions (thousand tons of carbon dioxide equivalents)\n\n\n',
+                nameLocation: 'middle',
+                nameRotate: 90
             }],
             series: [{
                 name: 'Fluoronated gases',
@@ -550,7 +561,7 @@
         var eleData = dataManager.getValueByKey(sourceData, "ELECTRICITY AND DISTRICT HEATING", year),
             indData = dataManager.getValueByKey(sourceData, "INDUSTRY", year),
             domData = dataManager.getValueByKey(sourceData, "DOMESTIC TRANSPORT", year),
-            agrData = dataManager.getValueByKey(sourceData, "AGRICULTURE"),
+            agrData = dataManager.getValueByKey(sourceData, "AGRICULTURE", year),
             heaData = dataManager.getValueByKey(sourceData, "HEATING OF HOUSES AND PREMISES", year),
             othData = dataManager.getValueByKey(sourceData, "OTHERS", year);
 
@@ -565,6 +576,7 @@
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
+            color: ["#c0801d","#febf2d", "#adc9ca", "#a4ad26", "#45560c","#c8691b"],
             series: [{
                 name: 'Source of emissions',
                 type: 'pie',
@@ -574,9 +586,11 @@
                     { value: eleData, name: 'ELECTRICITY', textStyle: { fontSize: 12 } },
                     { value: indData, name: 'INDUSTRY', textStyle: { fontSize: 12 } },
                     { value: domData, name: 'TRANSPORT', textStyle: { fontSize: 12 } },
-                    { value: agrData, name: 'AGRICULTURE', textStyle: { fontSize: 12 } },
+                    { value: othData, name: 'OTHERS', textStyle: { fontSize: 12 } },
                     { value: heaData, name: 'HEATING', textStyle: { fontSize: 12 } },
-                    { value: othData, name: 'OTHERS', textStyle: { fontSize: 12 } }
+                    { value: agrData, name: 'AGRICULTURE', textStyle: { fontSize: 12 } }
+
+                    
                 ],
                 itemStyle: {
                     emphasis: {
