@@ -9,24 +9,22 @@
     <script type="text/javascript" src="./js/lib/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="./js/lib/echarts.js"></script>
     <script type="text/javascript" src="./js/lib/jquery.particleground.js"></script>
-
-
 </head>
 
 <body>
-<div class="particle"></div>
+    <div class="particle"></div>
     <div class="row header" id="test">
         <img class="logo" src="./img/pandadata_logo.png" alt="pandadata">
     </div>
     <div class="row">
-        <div class="col-md-4 sidebar">
-        <div class="parameters">
-        	<input type="text" id="apartments"><label for="">APARTMENTS</label>
-        	<input type="text" id="area"><label for="">m²/APARTMENT</label>
-
-
-        </div>
-           <!--  <div class="menu">
+        <div class="col-md-3 sidebar">
+            <div class="parameters">
+                <input type="text" id="apartments">
+                <label for="">APARTMENTS</label>
+                <input type="text" id="area">
+                <label for="">m²/APARTMENT</label>
+            </div>
+            <!--  <div class="menu">
                 <span>MENU</span>
                 <ul class="nav nav-pills nav-stacked">
                     <li class="pure-menu-item">
@@ -44,9 +42,23 @@
                 </ul>
             </div> -->
         </div>
-        <div class="col-md-8 content">
+        <div class="col-md-6 content">
             <div class="row">
                 <div class="graph" id="graph_container" style="width: 600px; height: 450px;"></div>
+            </div>
+        </div>
+        <div class="col-md-3 analysis" id="graph_analysis">
+            <div class="delta">
+                <div class="flip-container">
+                    <div class="flipper">
+                        <div class="front">
+                            <p><span id="delta">100</span>/m²</p>
+                        </div>
+                        <div class="back">
+                            <p><span id="num">5</span><br>Elephants!</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

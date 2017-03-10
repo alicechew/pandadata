@@ -1,16 +1,14 @@
-
-
 html,
 body {
     height: 100%;
     margin: 0;
 }
 
-.particle{
-	width:100%;
-	height: 100%;
-	position: absolute;
-	z-index: -10;
+.particle {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -10;
 }
 
 .header {
@@ -38,6 +36,7 @@ body {
     display: inline-block;
     vertical-align: text-bottom;
     text-align: center;
+    width: 80px;
 }
 
 .parameters label {
@@ -52,5 +51,89 @@ body {
 }
 
 .content .graph {
-    margin: auto 0 auto 50px;
+    margin: 0 auto;
+}
+
+.analysis .delta {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-top: 120px;
+}
+
+.analysis .delta p {
+    line-height: 200px;
+    text-align: center;
+    font-size: 20px;
+    font-family: Arial;
+    color: #fff;
+}
+
+.analysis .delta p span {
+    font-size: 80px;
+}
+
+.analysis .back p {
+	margin-top: 40px;
+    line-height: 1;
+}
+
+
+/* entire container, keeps perspective */
+
+.flip-container {
+    perspective: 1000px;
+}
+
+
+/* flip the pane when hovered */
+
+.flip-container:hover .flipper,
+.flip-container.hover .flipper {
+    transform: rotateY(180deg);
+}
+
+.flip-container,
+.front,
+.back {
+    width: 200px;
+    height: 200px;
+}
+
+
+/* flip speed goes here */
+
+.flipper {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+
+/* hide back of pane during swap */
+
+.front,
+.back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgb(122, 165, 91);
+    border-radius: 999px;
+}
+
+
+/* front pane, placed above back */
+
+.front {
+    z-index: 2;
+    /* for firefox 31 */
+    transform: rotateY(0deg);
+}
+
+
+/* back, initially hidden pane */
+
+.back {
+    transform: rotateY(180deg);
 }

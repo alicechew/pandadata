@@ -1,12 +1,19 @@
 ;
 (function(window, $, echarts, dataManager) {
+    var $analysis = $("#chart_analysis");
+    var $delta = $("#delta");
+    var $num = $("#num");
 
+
+    /**
+     *	set background
+     **/
     var pOption = {
         dotColor: "#dff0d8",
         lineColor: "#dff0d8"
     };
     $(".particle").particleground(pOption);
-   
+
 
 
     // var testData;
@@ -16,6 +23,7 @@
     // });
 
     // console.log(testData);
+
 
     var yearData = [2017,
         2018,
@@ -63,6 +71,9 @@
     ]
     var woodData = [-1.5, -3, -4.5, -6, -7.5, -9, -10.5, -12, -13.5, -15, -16.5, -18, -19.5, -21, -22.5, -24, -25.5, -27, -28.5, -30, -31.5];
 
+    /**
+     *	init chart
+     **/
     var chart = echarts.init(document.getElementById("graph_container"));
     var option = {
         title: {
@@ -79,7 +90,7 @@
             data: yearData
         },
         yAxis: {},
-        color: ["#3c763d", "#d59b00"],
+        color: ["#d59b00", "#3c763d"],
         series: [{
             name: "concrete",
             type: "bar",
@@ -102,10 +113,32 @@
             end: 100 // 右边在 60% 的位置。
         }
     };
-
     chart.setOption(option);
-    chart.on("dataZoom", function(startValue, endValue){
-    	console.log(startValue);
+
+    // init analysis delta
+    
+
+    var delta = concreteData[concreteData.length - 1] - woodData[woodData.length - 1];
+    $delta.text(parseInt(delta));
+
+
+    chart.on("dataZoom", function(param) {
+        var end = chart.getOption().xAxis[0].rangeEnd;
+        delta = concreteData[end] - woodData[end];
+        if (delta) {
+            $delta.text(parseInt(delta));
+            var elephants = parseInt(delta / 10);
+            $num.text(elephants);
+        }
+
+    });
+
+
+    /**
+     *	delta analysis
+     **/
+    $analysis.on("hover", function() {
+
     });
 
 
