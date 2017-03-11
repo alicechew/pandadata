@@ -28,21 +28,23 @@ body {
 }
 
 .nav li a {
-	color: #999;
+    color: #999;
 }
 
-.nav>li>a:focus, .nav>li>a:hover{
-	background-color: transparent;
+.nav>li>a:focus,
+.nav>li>a:hover {
+    background-color: transparent;
 }
 
-.nav li:hover a, .nav>li.cur>a {
+.nav li:hover a,
+.nav>li.cur>a {
     color: #3c763d;
 }
 
-.nav li a{
-	padding: 2px 15px;
-	margin-left: 40px;
-	font-size: 18px;
+.nav li a {
+    padding: 2px 15px;
+    margin-left: 40px;
+    font-size: 18px;
 }
 
 .parameters {
@@ -73,13 +75,15 @@ body {
 .content .graph {
     margin: 0 auto;
 }
-.analysis .title{
-	width: 200px;
-	text-align: center;
-	margin-top: 120px;
-	font-weight: 900;
-	font-size: 16px;
+
+.analysis .title {
+    width: 200px;
+    text-align: center;
+    margin-top: 120px;
+    font-weight: 900;
+    font-size: 16px;
 }
+
 .analysis .delta {
     position: relative;
     width: 200px;
@@ -162,4 +166,53 @@ body {
 
 .back {
     transform: rotateY(180deg);
+}
+
+
+/* forest growing rate control */
+
+
+/*.forest-rate .rate-control, .forest-rate .rate-graph{
+	display: inline-block;
+}*/
+
+.forest-rate{
+	height: 200px;
+}
+
+.forest-rate .rate-control .input-rate{
+	display: inline-block;
+	vertical-align: middle;
+}
+.forest-rate .rate-control {
+    margin-top:20px;
+    position: absolute;
+    right: 45px;
+    bottom: 12px;
+    z-index: 2;
+}
+.forest-rate .rate-control span{
+	color: #888;
+	vertical-align: middle;
+}
+
+/*.forest-rate .rate-graph {
+    width: 90%;
+}
+*/
+.input-rate input {
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+}
+
+.rate-control .btn {
+    padding: 0;
+    margin: 0;
+    width: 40px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 28px;
+    color: #999;
 }

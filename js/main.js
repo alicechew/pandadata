@@ -176,10 +176,10 @@
         "2015": 863.2,
         "category": "Fluoronated gases"
     }];
-    var carData = dataManager.getArray(emissions, "Carbon dioxide"),
-        metData = dataManager.getArray(emissions, "Methane"),
-        nitData = dataManager.getArray(emissions, "Nitrous oxide"),
-        fluData = dataManager.getArray(emissions, "Fluoronated gases");
+    var carData = dataManager.getArray(emissions, "category", "Carbon dioxide"),
+        metData = dataManager.getArray(emissions, "category", "Methane"),
+        nitData = dataManager.getArray(emissions, "category", "Nitrous oxide"),
+        fluData = dataManager.getArray(emissions, "category", "Fluoronated gases");
 
 
     var sourceData = [{
@@ -352,12 +352,110 @@
         "category": "OTHERS"
     }];
 
-    // var eleData = dataManager.getArray(sourceData, "ELECTRICITY AND DISTRICT HEATING"),
-    //     indData = dataManager.getArray(sourceData, "INDUSTRY"),
-    //     domData = dataManager.getArray(sourceData, "DOMESTIC TRANSPORT"),
-    //     agrData = dataManager.getArray(sourceData, "AGRICULTURE"),
-    //     heaData = dataManager.getArray(sourceData, "HEATING OF HOUSES AND PREMISES"),
-    //     othData = dataManager.getArray(sourceData, "OTHERS");
+    var forestData = [
+  {
+    "year": 1990,
+    "total": 2565
+  },
+  {
+    "year": 1991,
+    "total": 2605
+  },
+  {
+    "year": 1992,
+    "total": 2614
+  },
+  {
+    "year": 1993,
+    "total": 2654
+  },
+  {
+    "year": 1994,
+    "total": 2677
+  },
+  {
+    "year": 1995,
+    "total": 2703
+  },
+  {
+    "year": 1996,
+    "total": 2720
+  },
+  {
+    "year": 1997,
+    "total": 2746
+  },
+  {
+    "year": 1998,
+    "total": 2747
+  },
+  {
+    "year": 1999,
+    "total": 2765
+  },
+  {
+    "year": 2000,
+    "total": 2790
+  },
+  {
+    "year": 2001,
+    "total": 2824
+  },
+  {
+    "year": 2002,
+    "total": 2869
+  },
+  {
+    "year": 2003,
+    "total": 2885
+  },
+  {
+    "year": 2004,
+    "total": 2902
+  },
+  {
+    "year": 2005,
+    "total": 2897
+  },
+  {
+    "year": 2006,
+    "total": 2901
+  },
+  {
+    "year": 2007,
+    "total": 2905
+  },
+  {
+    "year": 2008,
+    "total": 2917
+  },
+  {
+    "year": 2009,
+    "total": 2944
+  },
+  {
+    "year": 2010,
+    "total": 2981
+  },
+  {
+    "year": 2011,
+    "total": 3006
+  },
+  {
+    "year": 2012,
+    "total": 3057
+  },
+  {
+    "year": 2013,
+    "total": 3130
+  }
+];
+
+
+
+
+    var cPredict, cForest, cCarbon,
+        oriForest, impactDelta; //influence of reduction in forest to co2;
 
     /**
      *	tab control
@@ -395,6 +493,7 @@
 
                 case "1":
                     initChart1();
+                    cForest = initForestChart();
                     break;
 
                 default:
@@ -488,6 +587,18 @@
     var initChart1 = function() {
 
         var chart = echarts.init(document.getElementById("graph_container_1"));
+        // Q.calculateRate = function(yearArr, valueArr, endYear) {
+
+        var rateFlu1 = dataManager.calculateRate(yearData95to15, fluData, 2015),
+            rateNit1 = dataManager.calculateRate(yearData95to15, nitData, 2015),
+            rateMet1 = dataManager.calculateRate(yearData95to15, metData, 2015),
+            rateCar1 = dataManager.calculateRate(yearData95to15, carData, 2015);
+        // Q.predictData = function(yearData, valueData, rate, targetYear) {
+
+        var dataFlu1 = dataManager.predictData(yearData95to15, fluData, rateFlu1, 2050),
+            dataNit1 = dataManager.predictData(yearData95to15, nitData, rateNit1, 2050),
+            dataMet1 = dataManager.predictData(yearData95to15, metData, rateMet1, 2050),
+            dataCar1 = dataManager.predictData(yearData95to15, carData, rateCar1, 2050);
 
         var option = {
             title: {
@@ -498,7 +609,7 @@
                 trigger: "axis"
             },
             legend: {
-                data: ["Fluoronated gases", "Nitrous oxide", "Methane", "Carbon dioxide"],
+                data: ["Carbon dioxide", "Methane", "Nitrous oxide", "Fluoronated gases"],
                 top: 20
             },
             color: ["#a5dff9", "#b9e07c", "#ffd439", "#ed745a"],
@@ -514,7 +625,7 @@
             xAxis: [{
                 type: 'category',
                 boundaryGap: false,
-                data: yearData95to15
+                data: dataFlu1[0]
             }],
             yAxis: [{
                 type: 'value',
@@ -527,26 +638,49 @@
                 type: 'line',
                 stack: '总量',
                 areaStyle: { normal: {} },
-                data: fluData
+                data: dataFlu1[1]
             }, {
                 name: 'Nitrous oxide',
                 type: 'line',
                 stack: '总量',
                 areaStyle: { normal: {} },
-                data: nitData
+                data: dataNit1[1]
             }, {
                 name: 'Methane',
                 type: 'line',
                 stack: '总量',
                 areaStyle: { normal: {} },
-                data: metData
+                data: dataMet1[1]
             }, {
                 name: 'Carbon dioxide',
                 type: 'line',
                 stack: '总量',
                 areaStyle: { normal: {} },
-                data: carData
-            }]
+                data: dataCar1[1],
+                markLine: {
+                    lineStyle: {
+                        normal: {
+                            color: '#000000'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            position: 'middle',
+                            formatter: '2020 Target'
+
+                        }
+                    },
+                    data: [{
+                        name: '2020 target',
+                        yAxis: 43000
+                    }]
+                }
+            }],
+            dataZoom: {
+                type: 'slider', // 这个 dataZoom 组件是 inside 型 dataZoom 组件
+                start: 0, // 左边在 10% 的位置。
+                end: 50 // 右边在 60% 的位置。
+            }
         };
 
         chart.setOption(option);
@@ -555,6 +689,7 @@
             var year = params.name;
             initPieChart(year);
         });
+
     };
 
     var initPieChart = function(year) {
@@ -569,14 +704,13 @@
         var option = {
             title: {
                 text: 'Sources of GHG Emissions',
-                x: 'center',
-                top: "30%"
+                x: 'center'
             },
             tooltip: {
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
-            color: ["#c0801d","#febf2d", "#adc9ca", "#a4ad26", "#45560c","#c8691b"],
+            color: ["#c0801d", "#febf2d", "#adc9ca", "#a4ad26", "#45560c", "#c8691b"],
             series: [{
                 name: 'Source of emissions',
                 type: 'pie',
@@ -590,7 +724,7 @@
                     { value: heaData, name: 'HEATING', textStyle: { fontSize: 12 } },
                     { value: agrData, name: 'AGRICULTURE', textStyle: { fontSize: 12 } }
 
-                    
+
                 ],
                 itemStyle: {
                     emphasis: {
@@ -602,10 +736,121 @@
             }]
         };
         chart.setOption(option);
+    };
 
+    var initForestChart = function() {
+        var C = new Object();
+
+
+        var dYear = dataManager.getArray(forestData, "year");
+        var dForest = dataManager.getArray(forestData, "total");
+
+        var rate = dataManager.calculateRate(dYear, dForest, 2013);
+        var predictData = dataManager.predictData(dYear, dForest, rate, 2050);
+
+        oriForest = predictData[1][predictData[1].length - 1];
+
+
+        var chart = echarts.init(document.getElementById("graph_container_1_forest"));
+
+        C.option = {
+            title: {
+                text: "Growing Volume of Sweden's Forest",
+                left: '30%',
+                top: 20
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                type: 'category',
+                data: predictData[0]
+            },
+            yAxis: {
+            	name: 'millions m³\n\n\n',
+            	nameLocation: 'middle',
+            	nameRotate: 90,
+                type: 'value'
+            },
+            grid: {
+                x: 75
+            },
+            series: [{
+                name: 'forest',
+                type: 'line',
+                color: ['#3c763d'],
+                showSymbol: false,
+                hoverAnimation: false,
+                data: predictData[1]
+            }],
+            dataZoom: {
+                type: 'slider', // 这个 dataZoom 组件是 inside 型 dataZoom 组件
+                start: 0, // 左边在 10% 的位置。
+                end: 50 // 右边在 60% 的位置。
+            }
+        };
+
+        C.reset = function(xData, yData) {
+            var o = $.extend({}, C.option),
+                s = $.extend({}, o.series[0]);
+
+            if (xData) {
+                o.xAxis.data = xData;
+            }
+            if (yData) {
+                s.lineStyle = { normal: { type: "dashed" } };
+                s.color = ["#50a25b"];
+                s.data = yData;
+                o.series[1] = s;
+            }
+            chart.setOption(o);
+        };
+
+        chart.setOption(C.option);
+        rateControl(rate);
+
+
+        return C;
 
     };
 
+    var rateControl = function(rate) {
+        var $input = $("#input_rate"),
+            $btnPlus = $("#btn_plus"),
+            $btnMinus = $("#btn_minus"),
+            curRate, newRate,
+            resultArr;
+
+
+        var dYear = dataManager.getArray(forestData, "year");
+        var dForest = dataManager.getArray(forestData, "total");
+
+
+        //init 
+        $input.val(rate.toFixed(2));
+        $btnPlus.on("click", function() {
+            curRate = parseFloat($input.val());
+            newRate = curRate + 0.01;
+            $input.val(newRate.toFixed(2));
+
+            resultArr = dataManager.predictData(dYear, dForest, newRate, 2050);
+            impactDelta = resultArr[1][resultArr[1].length - 1] - oriForest;
+            cForest.reset(null, resultArr[1]);
+            
+        });
+
+        $btnMinus.on("click", function() {
+            curRate = parseFloat($input.val());
+            newRate = curRate - 0.01;
+
+            $input.val(newRate.toFixed(2));
+            resultArr = dataManager.predictData(dYear, dForest, newRate, 2050);
+            impactDelta = resultArr[1][resultArr[1].length - 1] - oriForest;
+
+            cForest.reset(null, resultArr[1]);
+
+        });
+    };
     /**
      *	init
      **/
