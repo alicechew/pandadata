@@ -429,7 +429,7 @@
 
 
 
-    var cPredict, cForest, cCarbon,
+    var cPredict, cForest, cCarbon, cPie,
         oriForest, impactDelta; //influence of reduction in forest to co2;
 
     /**
@@ -440,7 +440,7 @@
     var $curTab = $($nav.find("li")[0]),
         $newPage;
     $curTab.addClass("cur");
-    var $curPage = $pages.filter("[data-page='1']");
+    var $curPage = $pages.filter("[data-page='0']");
 
     $nav.on("click", "li", function(event) {
         var $this = $(this);
@@ -670,7 +670,9 @@
         };
 
         chart.setOption(C.option);
-        initPieChart(2015);
+        // $("#pie_year").text(2015);
+
+        // cPie = initPieChart(2015);
         chart.on("click", function(params) {
             var year = params.name;
             initPieChart(year);
@@ -718,6 +720,8 @@
     };
 
     var initPieChart = function(year) {
+    	var C = new Object();
+
         var eleData = dataManager.getValueByKey(sourceData, "ELECTRICITY AND DISTRICT HEATING", year),
             indData = dataManager.getValueByKey(sourceData, "INDUSTRY", year),
             domData = dataManager.getValueByKey(sourceData, "DOMESTIC TRANSPORT", year),
@@ -726,9 +730,9 @@
             othData = dataManager.getValueByKey(sourceData, "OTHERS", year);
 
         var chart = echarts.init(document.getElementById("graph_container_1_pie"));
-        var option = {
+        C.option = {
             title: {
-                text: 'Sources of GHG Emissions',
+                text: 'Sources of GHG Emissions \n in year ' + year,
                 x: 'center'
             },
             tooltip: {
@@ -737,7 +741,7 @@
             },
             color: ["#c0801d", "#febf2d", "#adc9ca", "#a4ad26", "#45560c", "#c8691b"],
             series: [{
-                name: 'Source of emissions',
+                name: 'Source of emissions ',
                 type: 'pie',
                 radius: '50%',
                 center: ['48%', '60%'],
@@ -760,7 +764,15 @@
                 }
             }]
         };
-        chart.setOption(option);
+        chart.setOption(C.option);
+        C.reset = function(year){
+        	var o = $.extend({}, C.option);
+
+        	o.title.text = 'Sources of GHG Emissions \n in year' + year;
+
+        	chart.setOption(o);
+        };
+        return C;
     };
 
     var initForestChart = function() {
