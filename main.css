@@ -75,11 +75,17 @@ body {
 .content .graph {
     margin: 0 auto;
 }
-
+.apartments{
+	margin-top: 50px;
+}
+.apartments input{
+	width: 110px;
+	text-align: center;
+}
 .analysis .title {
     width: 200px;
     text-align: center;
-    margin-top: 120px;
+    margin-top: 20px;
     font-weight: 900;
     font-size: 16px;
 }
@@ -99,10 +105,12 @@ body {
     color: #fff;
 }
 
-.analysis .delta p span {
+.analysis .delta .front span {
     font-size: 80px;
 }
-
+.analysis .back .num{
+	font-size: 60px;
+}
 .analysis .back p {
     margin-top: 40px;
     line-height: 1;

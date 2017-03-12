@@ -352,104 +352,79 @@
         "category": "OTHERS"
     }];
 
-    var forestData = [
-  {
-    "year": 1990,
-    "total": 2565
-  },
-  {
-    "year": 1991,
-    "total": 2605
-  },
-  {
-    "year": 1992,
-    "total": 2614
-  },
-  {
-    "year": 1993,
-    "total": 2654
-  },
-  {
-    "year": 1994,
-    "total": 2677
-  },
-  {
-    "year": 1995,
-    "total": 2703
-  },
-  {
-    "year": 1996,
-    "total": 2720
-  },
-  {
-    "year": 1997,
-    "total": 2746
-  },
-  {
-    "year": 1998,
-    "total": 2747
-  },
-  {
-    "year": 1999,
-    "total": 2765
-  },
-  {
-    "year": 2000,
-    "total": 2790
-  },
-  {
-    "year": 2001,
-    "total": 2824
-  },
-  {
-    "year": 2002,
-    "total": 2869
-  },
-  {
-    "year": 2003,
-    "total": 2885
-  },
-  {
-    "year": 2004,
-    "total": 2902
-  },
-  {
-    "year": 2005,
-    "total": 2897
-  },
-  {
-    "year": 2006,
-    "total": 2901
-  },
-  {
-    "year": 2007,
-    "total": 2905
-  },
-  {
-    "year": 2008,
-    "total": 2917
-  },
-  {
-    "year": 2009,
-    "total": 2944
-  },
-  {
-    "year": 2010,
-    "total": 2981
-  },
-  {
-    "year": 2011,
-    "total": 3006
-  },
-  {
-    "year": 2012,
-    "total": 3057
-  },
-  {
-    "year": 2013,
-    "total": 3130
-  }
-];
+    var forestData = [{
+        "year": 1990,
+        "total": 2565
+    }, {
+        "year": 1991,
+        "total": 2605
+    }, {
+        "year": 1992,
+        "total": 2614
+    }, {
+        "year": 1993,
+        "total": 2654
+    }, {
+        "year": 1994,
+        "total": 2677
+    }, {
+        "year": 1995,
+        "total": 2703
+    }, {
+        "year": 1996,
+        "total": 2720
+    }, {
+        "year": 1997,
+        "total": 2746
+    }, {
+        "year": 1998,
+        "total": 2747
+    }, {
+        "year": 1999,
+        "total": 2765
+    }, {
+        "year": 2000,
+        "total": 2790
+    }, {
+        "year": 2001,
+        "total": 2824
+    }, {
+        "year": 2002,
+        "total": 2869
+    }, {
+        "year": 2003,
+        "total": 2885
+    }, {
+        "year": 2004,
+        "total": 2902
+    }, {
+        "year": 2005,
+        "total": 2897
+    }, {
+        "year": 2006,
+        "total": 2901
+    }, {
+        "year": 2007,
+        "total": 2905
+    }, {
+        "year": 2008,
+        "total": 2917
+    }, {
+        "year": 2009,
+        "total": 2944
+    }, {
+        "year": 2010,
+        "total": 2981
+    }, {
+        "year": 2011,
+        "total": 3006
+    }, {
+        "year": 2012,
+        "total": 3057
+    }, {
+        "year": 2013,
+        "total": 3130
+    }];
 
 
 
@@ -465,7 +440,7 @@
     var $curTab = $($nav.find("li")[0]),
         $newPage;
     $curTab.addClass("cur");
-    var $curPage = $pages.filter("[data-page='0']");
+    var $curPage = $pages.filter("[data-page='1']");
 
     $nav.on("click", "li", function(event) {
         var $this = $(this);
@@ -492,7 +467,7 @@
                     break;
 
                 case "1":
-                    initChart1();
+                    cCarbon = initChart1();
                     cForest = initForestChart();
                     break;
 
@@ -514,7 +489,8 @@
 
         var $analysis = $("#chart_analysis");
         var $delta = $("#delta");
-        var $num = $("#num");
+        var $num = $("#num"),
+            $description = $("#description");
 
         var chart = echarts.init(document.getElementById("graph_container_0"));
         var option = {
@@ -570,21 +546,27 @@
 
         var delta = concreteData[concreteData.length - 1] - woodData[woodData.length - 1];
         $delta.text(parseInt(delta));
-
+        var elephants = dataManager.setElephants(delta);
+        $num.text(elephants[1]);
+        $description.text(elephants[0]);
 
         chart.on("dataZoom", function(param) {
             var end = chart.getOption().xAxis[0].rangeEnd;
             delta = concreteData[end] - woodData[end];
             if (delta) {
                 $delta.text(parseInt(delta));
-                var elephants = parseInt(delta / 10);
-                $num.text(elephants);
+
+                elephants = dataManager.setElephants(delta);
+                $num.text(elephants[1]);
+                $description.text(elephants[0]);
+
             }
 
         });
     };
 
     var initChart1 = function() {
+        var C = new Object();
 
         var chart = echarts.init(document.getElementById("graph_container_1"));
         // Q.calculateRate = function(yearArr, valueArr, endYear) {
@@ -600,10 +582,10 @@
             dataMet1 = dataManager.predictData(yearData95to15, metData, rateMet1, 2050),
             dataCar1 = dataManager.predictData(yearData95to15, carData, rateCar1, 2050);
 
-        var option = {
+        C.option = {
             title: {
                 text: "Sweden's Greenhouse Gas Emissions",
-                left: "28%"
+                left: "25%"
             },
             tooltip: {
                 trigger: "axis"
@@ -612,7 +594,7 @@
                 data: ["Carbon dioxide", "Methane", "Nitrous oxide", "Fluoronated gases"],
                 top: 20
             },
-            color: ["#a5dff9", "#b9e07c", "#ffd439", "#ed745a"],
+            color: ["#a5dff9", "#b9e07c", "#ffd439", "#ed745a", "#2a26ad"],
             toolbox: {
 
             },
@@ -638,24 +620,28 @@
                 type: 'line',
                 stack: '总量',
                 areaStyle: { normal: {} },
+                symbol: 'circle',
                 data: dataFlu1[1]
             }, {
                 name: 'Nitrous oxide',
                 type: 'line',
                 stack: '总量',
                 areaStyle: { normal: {} },
+                symbol: 'circle',
                 data: dataNit1[1]
             }, {
                 name: 'Methane',
                 type: 'line',
                 stack: '总量',
                 areaStyle: { normal: {} },
+                symbol: 'circle',
                 data: dataMet1[1]
             }, {
                 name: 'Carbon dioxide',
                 type: 'line',
                 stack: '总量',
                 areaStyle: { normal: {} },
+                symbol: 'circle',
                 data: dataCar1[1],
                 markLine: {
                     lineStyle: {
@@ -683,13 +669,52 @@
             }
         };
 
-        chart.setOption(option);
+        chart.setOption(C.option);
         initPieChart(2015);
         chart.on("click", function(params) {
             var year = params.name;
             initPieChart(year);
         });
 
+        C.reset = function(impactDelta) {
+            var o = $.extend({}, C.option),
+                s = $.extend({}, o.series[3]),
+                s1 = $.extend({}, o.series[2]),
+                index, temp, deltaArr = [],
+                yearData = dataCar1[0].slice(),
+                newCarData = dataCar1[1].slice();
+
+
+            index = $.inArray(2015, yearData);
+
+
+
+            for (var i = 0; i < newCarData.length; i++) {
+                if (i < index) {
+                    newCarData[i] = 0;
+                } else {
+                    // temp = Number(newCarData[i]);s
+                    newCarData[i] = impactDelta;
+                }
+            }
+            //     }
+
+            s.name = "Impact of Forest Change on CO2 Emissions";
+            o.legend["data"].push("Impact of Forest Change on CO2 Emissions");
+
+            s.lineStyle = { normal: { type: "dashed" } };
+            s.data = newCarData;
+            o.series[4] = s;
+
+
+
+
+
+            chart.setOption(o);
+        };
+
+
+        return C;
     };
 
     var initPieChart = function(year) {
@@ -756,7 +781,7 @@
         C.option = {
             title: {
                 text: "Growing Volume of Sweden's Forest",
-                left: '30%',
+                left: '25%',
                 top: 20
             },
             tooltip: {
@@ -767,9 +792,9 @@
                 data: predictData[0]
             },
             yAxis: {
-            	name: 'millions m³\n\n\n',
-            	nameLocation: 'middle',
-            	nameRotate: 90,
+                name: 'millions m³\n\n\n',
+                nameLocation: 'middle',
+                nameRotate: 90,
                 type: 'value'
             },
             grid: {
@@ -833,10 +858,16 @@
             newRate = curRate + 0.01;
             $input.val(newRate.toFixed(2));
 
+            //reset forest chart
             resultArr = dataManager.predictData(dYear, dForest, newRate, 2050);
             impactDelta = resultArr[1][resultArr[1].length - 1] - oriForest;
             cForest.reset(null, resultArr[1]);
-            
+
+
+
+            //reset carbon chart
+            cCarbon.reset(impactDelta);
+
         });
 
         $btnMinus.on("click", function() {
@@ -848,6 +879,8 @@
             impactDelta = resultArr[1][resultArr[1].length - 1] - oriForest;
 
             cForest.reset(null, resultArr[1]);
+            cCarbon.reset(impactDelta);
+
 
         });
     };

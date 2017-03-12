@@ -69,16 +69,40 @@ var dataManager = (function(window, undefined) {
             lastValue = valueData[valueData.length - 1],
             temp;
 
-            // console.log(lastYear);
+        // console.log(lastYear);
         for (var i = 0; i < length; i++) {
-            temp = lastValue + lastValue*rate*(i+1);
+            temp = lastValue + lastValue * rate * (i + 1);
             resultYearArr.push(lastYear + i + 1);
             resultValueArr.push(temp);
-            
+
         }
 
         return [resultYearArr, resultValueArr];
 
     };
+
+
+    Q.setElephants = function(delta) {
+        var results = [];
+        if (delta) {
+            if (0 <= delta && delta <= 10) {
+                var elephantName = "Laundry";
+                var elephantValue = parseInt(delta / 0.0007);
+            } else if (10 < delta && delta <= 20) {
+                var elephantName = "Shirts ironing a year";
+                var elephantValue = parseInt(delta / 0.0026);
+            } else if (20 < delta && delta <= 30) {
+                var elephantName = "persons household waste";
+                var elephantValue = parseInt(delta / 0.23);
+            } else if (30 < delta) {
+                var elephantName = "Cars driving 10000 miles";
+                var elephantValue = parseInt(delta / 4);
+            }
+            results.push(elephantName);
+            results.push(elephantValue);
+        }
+        return results;
+    };
+
     return Q;
 })(window)
