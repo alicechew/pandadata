@@ -4,7 +4,7 @@
 
 
     /**
-     *	set background
+     *  set background
      **/
     var pOption = {
         dotColor: "#dff0d8",
@@ -14,7 +14,7 @@
 
 
     /**
-     *	data
+     *  data
      **/
     var yearData = [2017,
         2018,
@@ -432,58 +432,10 @@
     var cPredict, cForest, cCarbon, cPie,
         oriForest, impactDelta; //influence of reduction in forest to co2;
 
-    /**
-     *	tab control
-     **/
-    var $nav = $(".nav");
-    var $pages = $(".page");
-    var $curTab = $($nav.find("li")[0]),
-        $newPage;
-    $curTab.addClass("cur");
-    var $curPage = $pages.filter("[data-page='0']");
 
-    $nav.on("click", "li", function(event) {
-        var $this = $(this);
-        var index = $this.attr("data-tab");
-
-        if ($this == $curTab) {
-            return;
-        }
-        $curTab.removeClass("cur");
-        $this.addClass("cur");
-        $curTab = $this;
-
-
-        $newPage = $pages.filter("[data-page='" + index + "']");
-        $curPage.addClass("hide");
-
-        $curPage = $newPage;
-        if ($curPage.hasClass("hide")) {
-            $curPage.removeClass("hide");
-
-            switch (index) {
-                case "0":
-                    initChart0();
-                    break;
-
-                case "1":
-                    cCarbon = initChart1();
-                    cForest = initForestChart();
-                    break;
-
-                default:
-                    initChart0();
-                    break;
-            }
-        }
-
-
-
-
-    });
 
     /**
-     *	init chart
+     *  init chart
      **/
     var initChart0 = function() {
 
@@ -670,9 +622,8 @@
         };
 
         chart.setOption(C.option);
-        // $("#pie_year").text(2015);
 
-        // cPie = initPieChart(2015);
+        cPie = initPieChart(2015);
         chart.on("click", function(params) {
             var year = params.name;
             initPieChart(year);
@@ -720,7 +671,7 @@
     };
 
     var initPieChart = function(year) {
-    	var C = new Object();
+        var C = new Object();
 
         var eleData = dataManager.getValueByKey(sourceData, "ELECTRICITY AND DISTRICT HEATING", year),
             indData = dataManager.getValueByKey(sourceData, "INDUSTRY", year),
@@ -765,12 +716,12 @@
             }]
         };
         chart.setOption(C.option);
-        C.reset = function(year){
-        	var o = $.extend({}, C.option);
+        C.reset = function(year) {
+            var o = $.extend({}, C.option);
 
-        	o.title.text = 'Sources of GHG Emissions \n in year' + year;
+            o.title.text = 'Sources of GHG Emissions \n in year' + year;
 
-        	chart.setOption(o);
+            chart.setOption(o);
         };
         return C;
     };
@@ -897,11 +848,59 @@
         });
     };
     /**
-     *	init
+     *  init
      **/
-    initChart0();
+    // initChart0();
+
+    /**
+     *  tab control
+     **/
+    var $nav = $(".nav");
+    var $pages = $(".page");
+    var $curTab = $($nav.find("li")[0]),
+        $newPage;
+
+    $curTab.addClass("cur");
+    var $curPage = $pages.filter("[data-page='1']");
+    cCarbon = initChart1();
+    cForest = initForestChart();
+
+    $nav.on("click", "li", function(event) {
+        var $this = $(this);
+        var index = $this.attr("data-tab");
+
+        if ($this == $curTab) {
+            return;
+        }
+        $curTab.removeClass("cur");
+        $this.addClass("cur");
+        $curTab = $this;
 
 
+        $newPage = $pages.filter("[data-page='" + index + "']");
+        $curPage.addClass("hide");
+
+        $curPage = $newPage;
+        if ($curPage.hasClass("hide")) {
+            $curPage.removeClass("hide");
+
+            switch (index) {
+                case "0":
+                    initChart0();
+                    break;
+
+                case "1":
+                    cCarbon = initChart1();
+                    cForest = initForestChart();
+                    break;
+
+                default:
+                    initChart0();
+                    break;
+            }
+        }
+
+    });
 
 
 })(window, jQuery, echarts, dataManager)
